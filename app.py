@@ -66,6 +66,18 @@ def listar_lancamentos():
     return jsonify(lancamentos), 200, {'Content-Type': 'application/json; charset=utf-8'}
 
 
+# Rota para excluir todos os lançamentos
+@app.route('/lancamentos', methods=['DELETE'])
+def deletar_todos_lancamentos():
+    conn = sqlite3.connect("financas.db")
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM lancamentos")
+    conn.commit()
+    conn.close()
+    return jsonify({"mensagem": "Todos os lançamentos foram deletados!"})
+
+
+
 # Iniciar o servidor Flask
 import os
 
